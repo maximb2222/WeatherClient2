@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WeatherClient"
+             x:Class="WeatherClient.MainPage"
+             Title="Прогноз погоды">
+
+    <ContentPage.Resources>
+        <local:WeatherImageConverter x:Key="WeatherImageConverter" />
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Введите почтовый индекс" />
+        <Entry x:Name="txtPostalCode" 
+               Placeholder="Например: 12345" 
+               Keyboard="Numeric" />
+
+        <HorizontalStackLayout Spacing="10">
+            <Button x:Name="btnRefresh" 
+                    Text="Обновить" 
+                    Clicked="OnRefreshClicked"
+                    HorizontalOptions="Start" />
+            <ActivityIndicator x:Name="actIsBusy" 
+                               IsRunning="False"
+                               HorizontalOptions="Start" />
+        </HorizontalStackLayout>
+
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" 
+              ColumnDefinitions="Auto, Auto" 
+              Margin="0,20,0,0"
+              RowSpacing="10"
+              ColumnSpacing="20">
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Погода" />
+            <Image Grid.Row="0" Grid.Column="1" 
+                   Source="{Binding Condition, Converter={StaticResource WeatherImageConverter}}"
+                   HeightRequest="25" WidthRequest="25" />
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Температура" />
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Temperature}" />
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Влажность" />
+            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Humidity}" />
+
+            <Label Grid.Row="3" Grid.Column="0" Text="Осадки" />
+            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Precipitation}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Text="Ветер" />
+            <Label Grid.Row="4" Grid.Column="1" Text="{Binding Wind}" />
+
+        </Grid>
+
+    </VerticalStackLayout>
+
+</ContentPage>
